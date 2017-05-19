@@ -6,7 +6,8 @@ let context = path.join(process.cwd(), 'src');
 
 let plugins = [
     new CopyWebpackPlugin([
-        { from: 'index.html' }
+        { from: 'index.html' },
+        { from: 'app/app.component.html' }
     ])
 ];
 
