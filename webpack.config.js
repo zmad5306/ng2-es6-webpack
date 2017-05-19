@@ -7,7 +7,7 @@ let context = path.join(process.cwd(), 'src');
 let plugins = [
     new CopyWebpackPlugin([
         { from: 'index.html' },
-        { from: 'app/app.component.html' }
+        { from: 'app/**.html', flatten: true }
     ])
 ];
 
@@ -17,7 +17,8 @@ let entry = {
 };
 
 let output = {
-    path: path.resolve(process.cwd(), 'public'),
+    path: path.resolve(process.cwd(), 'dist'),
+    publicPath: 'http://localhost:8080/',
     filename: '[name].bundle.js',
     sourceMapFilename: '[name].map',
     chunkFilename: '[id].chunk.js'
@@ -54,11 +55,17 @@ let rules = [
     }
 ];
 
+let devServer = {
+    historyApiFallback: true,
+    stats: 'minimal'
+  }
+
 module.exports = {
     context: context,
     plugins: plugins,
     resolve: resolve,
     entry: entry,
     output: output,
-    module: { rules: rules }
+    module: { rules: rules },
+    devServer: devServer
 };
